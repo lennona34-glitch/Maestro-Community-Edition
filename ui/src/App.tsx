@@ -35,6 +35,9 @@ function App() {
   const setSidebarOpen = useStore(s => s.setSidebarOpen)
   const toggleSettings = useStore(s => s.toggleSettings)
   const sidebarMode = useStore(s => s.sidebarMode)
+  const zenMode = useStore(s => s.zenMode)
+  const setZenMode = useStore(s => s.setZenMode)
+  const toggleZenMode = useStore(s => s.toggleZenMode)
   const isMobile = useIsMobile()
   const isEditor = sidebarMode === 'editor'
 
@@ -56,6 +59,37 @@ function App() {
     const interval = setInterval(loadLlmStatus, 15000)
     return () => clearInterval(interval)
   }, [loadLlmStatus])
+
+  // Zen Mode: sync with browser fullscreenchange and keyboard shortcut 'Z' / 'Esc'
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement && useStore.getState().zenMode) {
+        useStore.getState().setZenMode(false)
+      }
+    }
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      const isInput = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.tagName === 'SELECT' || target?.isContentEditable
+      if (isInput) return
+
+      if (e.key === 'z' || e.key === 'Z') {
+        if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault()
+          toggleZenMode()
+        }
+      } else if (e.key === 'Escape' && zenMode) {
+        setZenMode(false)
+      }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenChange)
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreenChange)
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [zenMode, setZenMode, toggleZenMode])
 
   return (
     <div className="flex flex-col md:flex-row h-full w-full bg-bg-primary">

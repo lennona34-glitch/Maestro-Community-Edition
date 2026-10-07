@@ -120,3 +120,7 @@ app/dlss5/
 !docs/development/
 docs/development/*
 !docs/development/wan2gp-12-71-port-plan.md
+
+# Proxy configuration (contains user credentials - never commit!)
+proxy_config.txt
+

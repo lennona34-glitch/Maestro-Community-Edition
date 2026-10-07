@@ -1,4 +1,4 @@
-import { Settings, X } from 'lucide-react'
+import { Settings, X, Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useLayoutEffect, useMemo, useState, type CSSProperties } from 'react'
 import { useStore } from '../../stores/useStore'
 import { ViggleControls } from './ViggleControls'
@@ -58,6 +58,8 @@ export function Sidebar() {
   const setSidebarOpen = useStore(s => s.setSidebarOpen)
   const sidebarMode = useStore(s => s.sidebarMode)
   const editSubMode = useStore(s => s.editSubMode)
+  const zenMode = useStore(s => s.zenMode)
+  const toggleZenMode = useStore(s => s.toggleZenMode)
   const selectedModel = useStore(s => s.models.find(model => model.model_type === s.params.model_type))
   const isMobile = useIsMobile()
   const [characterSlot, setCharacterSlot] = useState<HTMLDivElement | null>(null)
@@ -336,12 +338,25 @@ export function Sidebar() {
 
   // Desktop: static sidebar
   return (
-    <aside ref={setSidebarElement} className="maestro-sidebar w-[420px] h-full bg-bg-secondary border-r border-border flex flex-col shrink-0">
+    <aside
+      ref={setSidebarElement}
+      className="maestro-sidebar w-[420px] h-full bg-bg-secondary border-r border-border flex flex-col shrink-0"
+    >
       {/* Header */}
       <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
         <MaestroBrand />
         <div className="flex items-center gap-2">
           <AppModeToggle />
+          <button
+            onClick={toggleZenMode}
+            className={`p-1.5 rounded-lg hover:bg-bg-hover transition-colors ${
+              zenMode ? 'text-accent-blue bg-accent-blue/10' : 'text-text-secondary hover:text-text-primary'
+            }`}
+            title={zenMode ? 'Exit Fullscreen (Esc or Z)' : 'Fullscreen Mode [Z]'}
+            aria-label="Fullscreen Mode"
+          >
+            {zenMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+          </button>
           <button
             onClick={toggleSettings}
             className="p-1.5 rounded-lg hover:bg-bg-hover text-text-secondary hover:text-text-primary transition-colors"

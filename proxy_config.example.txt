@@ -1,0 +1,39 @@
+# ====================================================================
+# Maestro AI - NordVPN / SOCKS5 Proxy Configuration (Template)
+# ====================================================================
+# If Civitai is blocked in your country (e.g. United Kingdom) and you
+# have a NordVPN account, this routes Civitai and model downloads
+# through NordVPN's SOCKS5 proxy without needing the full desktop VPN app.
+#
+# INSTRUCTIONS:
+# Copy this file to "proxy_config.txt" in the root Maestro AI directory.
+#
+# HOW TO GET YOUR NORDVPN SERVICE CREDENTIALS:
+# 1. Log in to your Nord Account at: https://my.nordaccount.com/
+# 2. On the left sidebar, click "NordVPN" (under Services).
+# 3. Scroll down to the "Manual setup" section and click "Set up NordVPN manually".
+# 4. Under "Service credentials (manual setup)", you will see:
+#       - Username: (a generated string of letters and numbers, NOT your email)
+#       - Password: (click Copy to copy it)
+# 5. Paste them below and change ENABLE_PROXY=false to ENABLE_PROXY=true.
+# ====================================================================
+
+ENABLE_PROXY=false
+NORD_USERNAME=your_service_username_here
+NORD_PASSWORD=your_service_password_here
+
+# NordVPN SOCKS5 Server Location (default: Netherlands - Amsterdam)
+# Other tested fast locations:
+#   amsterdam.nl.socks.nordhold.net
+#   stockholm.se.socks.nordhold.net
+#   us.socks.nordhold.net
+#   de.socks.nordhold.net
+#   ie.socks.nordhold.net
+NORD_SERVER=amsterdam.nl.socks.nordhold.net
+NORD_PORT=1080
+
+# --------------------------------------------------------------------
+# Optional: Custom Proxy URL (leave blank if using NordVPN settings above)
+# e.g.: CUSTOM_PROXY_URL=socks5h://user:pass@host:port
+# --------------------------------------------------------------------
+CUSTOM_PROXY_URL=

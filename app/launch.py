@@ -54,6 +54,12 @@ sys.argv = _wgp_argv
 # download progress for the UI's downloads-in-progress banner.
 print("[Maestro] Installing download stall protection...")
 from services import safe_download  # noqa: F401 (side-effect import)
+try:
+    from services.proxy_setup import init_proxy
+    init_proxy()
+except Exception as _e:
+    print(f"[Proxy] Warning initializing proxy: {_e}")
+
 from services.checkpoint_compatibility import (
     CheckpointCompatibilityError,
     checkpoint_targets_for_base,

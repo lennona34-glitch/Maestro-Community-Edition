@@ -12,6 +12,8 @@ import {
   Settings,
   Trash2,
   Undo2,
+  Maximize2,
+  Minimize2,
 } from 'lucide-react'
 import { GlobalQueuePopover } from '../components/GlobalQueuePopover'
 import { AppModeToggle, MaestroBrand } from '../components/AppModeNavigation'
@@ -269,6 +271,15 @@ export function EditorTopBar() {
           </>
         )}
         <GlobalQueuePopover iconSize={isMobile ? 20 : undefined} panelAlign={isMobile ? 'header-edge' : undefined} />
+        <button
+          type="button"
+          onClick={useStore.getState().toggleZenMode}
+          className="rounded-lg p-2 text-text-secondary hover:bg-bg-hover hover:text-text-primary"
+          title={useStore(state => state.zenMode) ? 'Exit Zen Mode (Esc or Z)' : 'Zen Mode (Fullscreen) [Z]'}
+          aria-label="Zen Mode"
+        >
+          {useStore(state => state.zenMode) ? <Minimize2 size={isMobile ? 20 : 16} /> : <Maximize2 size={isMobile ? 20 : 16} />}
+        </button>
         <button type="button" onClick={toggleSettings} className="rounded-lg p-2 text-text-secondary hover:bg-bg-hover hover:text-text-primary" title="Settings">
           <Settings size={isMobile ? 20 : 16} />
         </button>

@@ -1,6 +1,6 @@
 import { outputIdentity } from '../../lib/galleryIdentity'
 import { useRef, useCallback, useState, useEffect, useMemo, type JSX } from 'react'
-import { Film, Play, Square, FolderOpen, Plus, Check, Loader2, X, BookMarked, Upload, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
+import { Film, Play, Square, FolderOpen, Plus, Check, Loader2, X, BookMarked, Upload, Trash2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react'
 import { TabFilter } from './TabFilter'
 import { ThumbnailGallery } from './ThumbnailGallery'
 import { MediaFeedItem } from './MediaFeedItem'
@@ -537,6 +537,8 @@ function PipelinePlaceholder() {
 
 export function MainContent() {
   const isMobile = useIsMobile()
+  const zenMode = useStore(s => s.zenMode)
+  const toggleZenMode = useStore(s => s.toggleZenMode)
   const outputs = useStore(s => s.filteredOutputs())
   const outputsTotal = useStore(s => s.outputsTotal)
   const outputsLoading = useStore(s => s.outputsLoading)
@@ -909,6 +911,19 @@ export function MainContent() {
           </div>
           <WorkspaceSelector />
           {!isMobile && <GlobalQueuePopover />}
+          <button
+            type="button"
+            onClick={toggleZenMode}
+            className={`p-1.5 rounded-lg border transition-colors ${
+              zenMode
+                ? 'bg-accent-blue/15 text-accent-blue border-accent-blue/30'
+                : 'text-text-secondary hover:text-text-primary hover:bg-bg-hover border-border'
+            }`}
+            title={zenMode ? 'Exit Fullscreen (Esc or Z)' : 'Fullscreen Mode [Z]'}
+            aria-label="Fullscreen Mode"
+          >
+            {zenMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+          </button>
         </div>
       </div>
 

@@ -1564,6 +1564,9 @@ interface AppState {
   sidebarOpen: boolean
   toggleSidebar: () => void
   setSidebarOpen: (open: boolean) => void
+  zenMode: boolean
+  toggleZenMode: () => void
+  setZenMode: (enabled: boolean) => void
 
   // Theme — see lib/theme.ts. Two-dimensional: a dark/light/auto mode
   // plus a theme family (each family has a dark and a light variant).
@@ -4082,6 +4085,25 @@ export const useStore = create<AppState>((set, get) => ({
   sidebarOpen: false,
   toggleSidebar: () => set(s => ({ sidebarOpen: !s.sidebarOpen })),
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
+  zenMode: false,
+  setZenMode: (enabled) => {
+    if (typeof document !== 'undefined') {
+      if (enabled) {
+        if (!document.fullscreenElement) {
+          void document.documentElement.requestFullscreen().catch(() => {})
+        }
+      } else {
+        if (document.fullscreenElement) {
+          void document.exitFullscreen().catch(() => {})
+        }
+      }
+    }
+    set({ zenMode: enabled })
+  },
+  toggleZenMode: () => {
+    const next = !get().zenMode
+    get().setZenMode(next)
+  },
 
   // Theme — initial value reads from localStorage (with legacy
   // single-theme migration) so it matches what the inline script in

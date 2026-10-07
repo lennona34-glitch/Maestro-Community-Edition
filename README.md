@@ -2,7 +2,24 @@
 
 A one-click local AI **creative studio, director, and video editor** for creators. Maestro combines a modern interface with powerful image, video, and audio generation, an LLM-directed production workflow, and a non-destructive multi-track editor. Optimized for LTX-2.5, MiniMax H3, and the latest local creative models and LoRAs.
 
+## 🌟 Community Edition Enhancements
+
+This fork brings several quality-of-life enhancements for independent creators:
+* **Standalone Windows Launchers (`run.bat` & `install.bat`):** Run Maestro directly without requiring Pinokio or its 400MB+ launcher overhead. Automated 1-click install into a clean Python virtual environment (`app/env`) with CUDA 13 PyTorch acceleration.
+* **Zen Mode / Fullscreen Studio:** Distraction-free canvas mode. Press <kbd>Z</kbd> (or click the fullscreen icon in the top header) to hide browser chrome and focus on video generation, screenplay direction, and multi-track editing. Press <kbd>Esc</kbd> to exit.
+* **CivitAI SOCKS5 / NordVPN Proxy Unblocker:** Built-in per-app SOCKS5 proxy routing (`proxy_config.example.txt` → `proxy_config.txt`) with pre-flight health checks to bypass regional IP blocks (such as UK `HTTP 451: REGION_BLOCKED`) without routing your entire PC through a system VPN.
+
+### Quick Start (Standalone Windows)
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/lennona34-glitch/Maestro-Community-Edition.git
+   cd Maestro-Community-Edition
+   ```
+2. Double-click **`install.bat`** (installs dependencies and builds the UI).
+3. Double-click **`run.bat`** to start Maestro AI!
+
 ![Maestro UI](Maestro_UI_02.jpg)
+
 
 ## What it does
 
